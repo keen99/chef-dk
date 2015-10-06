@@ -82,6 +82,9 @@ if context.have_git
 
     execute("initialize-git") do
       command("git init .")
+      ## if we're already in a git repo, dont init.
+      ## exits 0 if we're in a repo, 128 if we're not.
+      not_if "git rev-parse"
       cwd cookbook_dir
     end
   end
